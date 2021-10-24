@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Drum kit atr</title>
+</head>
+<body>
+	<div class="keys">
+		<div data-key="65" class="key">
+			<kbd>A</kbd>
+			<span class="sound">clap</span>
+		</div>
+		<div data-key="83" class="key">
+			<kbd>S</kbd>
+			<span class="sound">hithat</span>
+		</div>
+		<div data-key="68" class="key">
+			<kbd>D</kbd>
+			<span class="sound">kick</span>
+		</div>
+		<div data-key="70" class="key">
+			<kbd>F</kbd>
+			<span class="sound">openhat</span>
+		</div>
+		<div data-key="71" class="key">
+			<kbd>G</kbd>
+			<span class="sound">boom</span>
+		</div>
+		<div data-key="72" class="key">
+			<kbd>H</kbd>
+			<span class="sound">ride</span>
+		</div>
+		<div data-key="74" class="key">
+			<kbd>J</kbd>
+			<span class="sound">snare</span>
+		</div>
+		<div data-key="75" class="key">
+			<kbd>K</kbd>
+			<span class="sound">tom</span>
+		</div>
+		<div data-key="76" class="key">
+			<kbd>L</kbd>
+			<span class="sound">tink</span>
+		</div>
+	</div>
+
+
+<audio data-key="65" src="sounds/clap.wav"></audio>
+<audio data-key="83" src="sounds/hithat.wav"></audio>
+<audio data-key="68" src="sounds/kick.wav"></audio>
+<audio data-key="70" src="sounds/openhat.wav"></audio>
+<audio data-key="71" src="sounds/boom.wav"></audio>
+<audio data-key="72" src="sounds/ride.wav"></audio>
+<audio data-key="74" src="sounds/snare.wav"></audio>
+<audio data-key="75" src="sounds/tom.wav"></audio>
+<audio data-key="76" src="sounds/tink.wav"></audio>
+
+
+<script>
+	window.addEventListener('keydown', function (e) {
+		const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);//ESTA FUNCION INDICA QUE CUANDO TOCAMOS UNA TECLA CREE LA CONS AUDIO
+		const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);// ACA CREA LA CONST KEY PARA LA ANIMACION , SELECCIONA LA TECLA QUE TOCAMOS ,CLASE KEY,
+		if (!audio) return;// ESTO ES PARA QUE SI TOCAMOS UNA TECLA QUE NO TENGA AUDIO NO EJECUTE LA FUNCION
+		audio.currentTime = 0; // VUELVE AL PRINCIPIO DEL AUDIO PA TOCAR VARIAS VECES LAS TECLAS
+		audio.play();//SE EJECUTA EL AUDIO
+
+		key.classList.add('playing'); //AGREGAMOS ANIMACION CUANDO TOCAMOS TECLA
+	});
+// SE CREA UNA NUEVA CONST FUERA DE LA ANTERIOR PARA HACER UN TRANSITION END, ES DECIR QUE LA ANIMACION TERMINE CUANDO SE HAYA EJECUTADO
+function removeTransition(e) {
+	if(e.propertyName != 'transform') return;
+	this.classList.remove('playing')
+}
+	const keys = document.querySelectorAll ('.key');// ARRAY
+	keys.forEach(key => key.addEventListener('transitionend', removeTransition)); // CUANDO SE TOCA LA TECLA SE CRE UNA FUNCION QUE HACE QUE CUANDO SE TERMINE LA TRANSICION SE QUITE
+	
+
+
+
+
+</script>
+
+</body>
+</html>
